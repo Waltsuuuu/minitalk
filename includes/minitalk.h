@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 13:30:53 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/16 14:11:25 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 
 # define ERROR -1
 # define SUCCESS 0
+
+/* -- server.c -- */
+void	handle_signal(int sig, siginfo_t *info, void *context);
+
+/* -- client.c -- */
+void	send_msg(pid_t pid, const char *msg);
+void	send_char(pid_t pid, char c);
 
 /* -- client_utils.c -- */
 pid_t	check_pid(const char *pid_string);
