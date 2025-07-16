@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/15 21:14:36 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/16 13:04:39 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,8 @@
 # include <sys/types.h> //getpid
 # include "libft.h"
 # include "ft_printf.h"
+
+#define ERROR -1
+#define SUCCESS 0
 
 #endif
