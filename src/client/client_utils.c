@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:25:08 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 13:29:53 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/16 13:38:51 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ pid_t	check_pid(const char *pid_string)
 		i++;
 	}
 	server_pid = ft_atoi(pid_string);
-	if (kill(server_pid, 0) == -1)
+	if (kill(server_pid, 0) == ERROR || server_pid == 0)
 	{
 		ft_printf("ERROR: Incorrect PID. PID %d does not exist.\n", server_pid);
 		return (ERROR);
