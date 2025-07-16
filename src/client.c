@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 13:18:30 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/16 13:22:23 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,25 @@ pid_t	check_pid(const char *pid_string)
 	return (server_pid);
 }
 
+int	check_args(int argc)
+{
+	if (argc != 3)
+	{
+		ft_printf("ERROR: Execute with: ./client [PID] [MSG].\n");
+		return (ERROR);
+	}
+	return (SUCCESS);
+}
+
 int	main(int argc, char *argv[])
 {
 	pid_t	pid;
 	
-	if (argc != 3)
-	{
-		ft_printf("ERROR: Execute with: ./client [PID] [MSG].\n");
+	if (check_args(argc) == ERROR)
 		return (EXIT_FAILURE);
-	}
 	pid = check_pid(argv[1]);
 	if (pid == ERROR)
 		return (EXIT_FAILURE);
 	kill(pid, SIGUSR1);
 	return (EXIT_SUCCESS);
 }
-
