@@ -7,11 +7,16 @@ SERVER = server
 CLIENT = client
 
 # === SERVER ===
-SERVER_SRCS = src/server.c
+SERVER_DIR = src/server
+SERVER_SRCS = \
+	$(SERVER_DIR)/server.c
 SERVER_OBJS = $(SERVER_SRCS:.c=.o)
 
 # === CLIENT ===
-CLIENT_SRCS = src/client.c
+CLIENT_DIR = src/client
+CLIENT_SRCS = \
+	$(CLIENT_DIR)/client.c \
+	$(CLIENT_DIR)/client_utils.c
 CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
 
 # === LIBFT ===

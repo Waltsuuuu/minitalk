@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 13:22:23 by wheino           ###   ########.fr       */
+/*   Created: 2025/07/16 13:25:08 by wheino            #+#    #+#             */
+/*   Updated: 2025/07/16 13:29:53 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ pid_t	check_pid(const char *pid_string)
 
 	i = 0;
 	if (!pid_string || pid_string[0] == '\0')
+	{
+		ft_printf("ERROR: Empty PID.\n");
 		return (ERROR);
+	}
 	while (pid_string[i] != '\0')
 	{
 		if (ft_isdigit(pid_string[i]) == 0)
@@ -46,17 +49,4 @@ int	check_args(int argc)
 		return (ERROR);
 	}
 	return (SUCCESS);
-}
-
-int	main(int argc, char *argv[])
-{
-	pid_t	pid;
-	
-	if (check_args(argc) == ERROR)
-		return (EXIT_FAILURE);
-	pid = check_pid(argv[1]);
-	if (pid == ERROR)
-		return (EXIT_FAILURE);
-	kill(pid, SIGUSR1);
-	return (EXIT_SUCCESS);
 }
