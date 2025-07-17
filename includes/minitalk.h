@@ -6,17 +6,16 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 14:11:25 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:07:09 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include <unistd.h> // write, pause, usleep, sleep
-# include <signal.h> // signal, sigemptyset, sigaddset, sigaction, kill
-# include <stdlib.h> // malloc, free, exit
-# include <sys/types.h> //getpid
+# include <unistd.h>
+# include <signal.h>
+# include <sys/types.h>
 # include "libft.h"
 # include "ft_printf.h"
 
