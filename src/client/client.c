@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/16 14:21:51 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:03:16 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	send_msg(pid_t pid, const char *msg)
 {
 	int	i;
-	
+
 	i = 0;
 	while (msg[i] != '\0')
 	{
@@ -24,6 +24,7 @@ void	send_msg(pid_t pid, const char *msg)
 	}
 	send_char(pid, msg[i]);
 }
+
 void	send_char(pid_t pid, char c)
 {
 	int	bit_index;
