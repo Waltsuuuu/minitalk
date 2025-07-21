@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/21 17:42:36 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/21 21:19:39 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 		current_client = client;
 	if (client != current_client)
 	{
-		kill(client, SIGUSR2);	
+		kill(client, SIGUSR2);
 		return ;
 	}
 	if (sig == SIGUSR2)
@@ -59,8 +59,6 @@ int	main(void)
 	sa.sa_sigaction = &handle_signal;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGUSR1);
-	sigaddset(&sa.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("Server PID: %d\n", getpid());

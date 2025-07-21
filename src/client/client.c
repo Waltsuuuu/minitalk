@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/21 17:38:05 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/21 21:18:17 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static volatile sig_atomic_t	g_signal_received;
 
-void	send_msg(pid_t pid, const char *msg)
+int	send_msg(pid_t pid, const char *msg)
 {
 	int	i;
 
@@ -25,6 +25,7 @@ void	send_msg(pid_t pid, const char *msg)
 		i++;
 	}
 	send_char(pid, msg[i]);
+	return (SUCCESS);
 }
 
 void	send_char(pid_t pid, char c)
@@ -41,7 +42,8 @@ void	send_char(pid_t pid, char c)
 		else
 			kill(pid, SIGUSR1);
 		while (!g_signal_received)
-			usleep(50);
+			usleep(25);
+		usleep(25);
 		g_signal_received = 0;
 		bit_index--;
 	}
@@ -51,9 +53,10 @@ void	handle_ack_signal(int sig)
 {
 	if (sig == SIGUSR1)
 		g_signal_received = 1;
-	if (sig == SIGUSR2)
+	else if (sig == SIGUSR2)
 	{
-		ft_printf("Server busy! Try again later...\n");		
+		ft_printf("Server busy! Wait 25 seconds and try again...\n");
+		usleep(25000000);
 		exit(EXIT_FAILURE);
 	}
 }
