@@ -6,11 +6,13 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/17 16:03:16 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/21 17:38:05 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static volatile sig_atomic_t	g_signal_received;
 
 void	send_msg(pid_t pid, const char *msg)
 {
@@ -38,14 +40,22 @@ void	send_char(pid_t pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		pause();
+		while (!g_signal_received)
+			usleep(50);
+		g_signal_received = 0;
 		bit_index--;
 	}
 }
 
 void	handle_ack_signal(int sig)
 {
-	(void)sig;
+	if (sig == SIGUSR1)
+		g_signal_received = 1;
+	if (sig == SIGUSR2)
+	{
+		ft_printf("Server busy! Try again later...\n");		
+		exit(EXIT_FAILURE);
+	}
 }
 
 int	main(int argc, char *argv[])
@@ -58,6 +68,7 @@ int	main(int argc, char *argv[])
 	if (pid == ERROR)
 		return (EXIT_FAILURE);
 	signal(SIGUSR1, handle_ack_signal);
+	signal(SIGUSR2, handle_ack_signal);
 	send_msg(pid, argv[2]);
 	return (EXIT_SUCCESS);
 }
