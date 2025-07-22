@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/21 21:19:39 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/22 14:25:16 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 		bit_index = 0;
 		current_char = 0;
 	}
-	kill(info->si_pid, SIGUSR1);
+	kill(client, SIGUSR1);
 }
 
 int	main(void)
