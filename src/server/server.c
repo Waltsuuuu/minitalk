@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/22 14:25:16 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/25 14:11:59 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,13 @@ int	*print_byte(char current_char, pid_t *current_client)
 	return (current_client);
 }
 
-void	handle_signal(int sig, siginfo_t *info, void *context)
+void	print_byte(int sig, siginfo_t *info, void *context)
 {
 	static int		bit_index = 0;
 	static int		current_char = 0;
 	static pid_t	current_client;
 	pid_t			client;
 
-	(void)context;
-	client = info->si_pid;
-	if (current_client == 0)
-		current_client = client;
-	if (client != current_client)
-	{
-		kill(client, SIGUSR2);
-		return ;
-	}
 	if (sig == SIGUSR2)
 		current_char = current_char | (1 << (7 - bit_index));
 	bit_index++;

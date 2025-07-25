@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/25 14:09:18 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/25 14:11:53 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,7 @@ void	handle_ack_signal(int sig)
 	if (sig == SIGUSR1)
 		g_signal_received = 1;
 	else if (sig == SIGUSR2)
-	{
-		ft_printf("Server busy! Wait 25 seconds and try again...\n");
-		usleep(25000000);
-		exit(EXIT_FAILURE);
-	}
+		(void)sig;
 }
 
 int	main(int argc, char *argv[])
@@ -71,6 +67,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	signal(SIGUSR1, handle_ack_signal);
 	signal(SIGUSR2, handle_ack_signal);
+	send_len(pid, argv[2]);
 	send_msg(pid, argv[2]);
 	return (EXIT_SUCCESS);
 }
