@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/25 14:11:59 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/25 14:13:19 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	print_byte(int sig, siginfo_t *info, void *context)
 {
 	static int		bit_index = 0;
 	static int		current_char = 0;
-	static pid_t	current_client;
-	pid_t			client;
 
 	if (sig == SIGUSR2)
 		current_char = current_char | (1 << (7 - bit_index));
@@ -40,7 +38,7 @@ void	print_byte(int sig, siginfo_t *info, void *context)
 		bit_index = 0;
 		current_char = 0;
 	}
-	kill(client, SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
