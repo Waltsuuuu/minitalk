@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/25 14:11:53 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/25 15:27:55 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	handle_ack_signal(int sig)
 	if (sig == SIGUSR1)
 		g_signal_received = 1;
 	else if (sig == SIGUSR2)
-		(void)sig;
+		ft_printf("Message sent succesfully!\n");
 }
 
 int	main(int argc, char *argv[])
