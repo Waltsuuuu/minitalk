@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 20:45:01 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 20:55:34 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	sigaction(SIGINT, &sa, NULL);
 	ft_printf("Server PID: %d\n", getpid());
 	while (1)
 		pause();
@@ -38,15 +37,6 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (sig == SIGUSR2 || sig == SIGUSR1)
 		decode_bits(sig, info);
-	if (sig == SIGINT)
-	{
-		if (g_state.msg)
-		{
-			free(g_state.msg);
-			g_state.msg = NULL;
-		}
-		exit(EXIT_SUCCESS);
-	}
 }
 
 void	decode_bits(int sig, siginfo_t *info)
@@ -74,13 +64,6 @@ void	build_len(char c)
 	static char	len_s[11];
 	static int	i = 0;
 
-	if (i >= 10)
-	{
-		ft_printf("ERROR: Message length too long\n");
-		g_state.expecting_len = TRUE;
-		i = 0;
-		return ;
-	}
 	if (c == '\0')
 	{
 		len_s[i] = c;
