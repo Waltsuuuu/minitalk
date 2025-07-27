@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:42:34 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 20:58:56 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,15 @@ void	handle_ack_signal(int sig)
 
 void	send_len(pid_t pid, char *msg)
 {
-	int		len;
+	size_t		len;
 	char	*len_str;
 
 	len = ft_strlen(msg);
+	if (len > INT_MAX)
+	{
+		ft_printf("ERROR: Message too long\n");
+		exit(EXIT_FAILURE);
+	}
 	len_str = ft_itoa(len);
 	send_msg(pid, len_str);
 }
