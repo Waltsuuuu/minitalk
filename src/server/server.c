@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 16:19:49 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 20:45:01 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ void	build_len(char c)
 	static char	len_s[11];
 	static int	i = 0;
 
+	if (i >= 10)
+	{
+		ft_printf("ERROR: Message length too long\n");
+		g_state.expecting_len = TRUE;
+		i = 0;
+		return ;
+	}
 	if (c == '\0')
 	{
 		len_s[i] = c;
