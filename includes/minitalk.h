@@ -6,14 +6,13 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 19:11:04 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 20:31:50 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include <unistd.h>
 # include <signal.h>
 # include "libft.h"
 # include "ft_printf.h"
