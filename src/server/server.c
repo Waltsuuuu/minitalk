@@ -6,14 +6,14 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/25 15:37:09 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 13:42:38 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 static volatile sig_atomic_t	g_expecting_len = TRUE;
-static int g_len;
+static int g_len; //Make a struct to hold these variables
 
 // Remember to free malloc on CTRL+C / unexpected exit
 
@@ -29,12 +29,10 @@ void	decode_bits(int sig, siginfo_t *info)
 	{
 		if (g_expecting_len == TRUE)
 		{
-			ft_printf("Build len\n");
 			build_len(current_char); //Gathers the message length string. 
 		}
 		else
 		{
-			ft_printf("Build msg - char = %c\n", current_char);
 			build_msg(current_char, info->si_pid); //Gathers the message string.
 		}
 		bit_index = 0;
@@ -48,22 +46,18 @@ void	build_len(char c)
 	static char	len_s[11];
 	static int	i = 0;
 	
-	ft_printf("len char = %c\n", c);
 	if (c == '\0')
 	{
 		len_s[i] = c;
 		g_len = ft_atoi(len_s);
 		g_expecting_len = FALSE;
-
+		i = 0;
 	}
 	else if (i < 10)
 	{
 		len_s[i++] = c;
 		len_s[i] = '\0';
-		i++;
 	}
-	ft_printf("len_s = %s", len_s);
-	ft_printf("Len = %d\n", g_len);
 }
 
 void	build_msg(char c, pid_t pid)
@@ -72,13 +66,20 @@ void	build_msg(char c, pid_t pid)
 	static char	*msg = NULL;
 	
 	if (!msg)
-		msg = malloc((sizeof(char) * g_len) + 1); //Maybe guard??
-	msg[i++] = c;
-	if (i == g_len)
 	{
-		msg[i] = '\0';
+		msg = malloc((sizeof(char) * g_len) + 1); //Maybe guard??
+		if (!msg)
+		{
+			ft_printf("Malloc failed\n");
+			exit(EXIT_FAILURE); //Cleanup maybe??
+		}
+	}
+	msg[i++] = c;
+	if (c == '\0')
+	{
 		ft_printf("%s\n", msg);
 		free(msg);
+		msg = NULL;
 		g_expecting_len = TRUE;
 		i = 0;
 		kill(pid, SIGUSR2);
@@ -89,10 +90,13 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
 	if (sig == SIGUSR2 || sig == SIGUSR1)
-	{
-		ft_printf("signal received\n");
 		decode_bits(sig, info);
-	}
+}
+
+void	handle_exit(int sig)
+{
+	(void)sig;
+	
 }
 
 int	main(void)

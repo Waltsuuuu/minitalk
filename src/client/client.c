@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/25 15:27:55 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 13:15:52 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char *argv[])
 	signal(SIGUSR1, handle_ack_signal);
 	signal(SIGUSR2, handle_ack_signal);
 	send_len(pid, argv[2]);
+
 	send_msg(pid, argv[2]);
 	return (EXIT_SUCCESS);
 }
