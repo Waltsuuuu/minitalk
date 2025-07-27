@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:00:27 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:32:15 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	handle_signal(int sig, siginfo_t *info, void *context);
 int		*print_byte(char current_char, int *current_client);
 
 /* -- client.c -- */
+void	send_len(pid_t pid, char *msg);
 int		send_msg(pid_t pid, const char *msg);
 void	send_char(pid_t pid, char c);
 

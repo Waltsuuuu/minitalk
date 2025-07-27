@@ -6,13 +6,23 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:30:18 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:32:00 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 static volatile sig_atomic_t	g_signal_received;
+
+void	send_len(pid_t pid, char *msg)
+{
+	int		len;
+	char	*len_s;
+
+	len = ft_strlen(msg);
+	len_s = ft_itoa(len);
+	send_msg(pid, len_s);
+}
 
 int	send_msg(pid_t pid, const char *msg)
 {
@@ -70,14 +80,4 @@ int	main(int argc, char *argv[])
 	send_len(pid, argv[2]);
 	send_msg(pid, argv[2]);
 	return (EXIT_SUCCESS);
-}
-
-void	send_len(pid_t pid, char *msg)
-{
-	int		len;
-	char	*len_s;
-
-	len = ft_strlen(msg);
-	len_s = ft_itoa(len);
-	send_msg(pid, len_s);
 }
