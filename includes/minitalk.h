@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 13:55:04 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:00:27 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # define SUCCESS 0
 # define TRUE 1
 # define FALSE 0
+
+typedef struct s_server_vars
+{
+	volatile sig_atomic_t	expecting_len;
+	int						msg_len;
+	char					*msg;
+}		t_server_state;
 
 /* -- server.c -- */
 void	build_len(char c);
