@@ -6,13 +6,13 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:26:27 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:29:50 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static	t_server_state g_state;
+static t_server_state	g_state;
 
 void	decode_bits(int sig, siginfo_t *info)
 {
@@ -38,7 +38,7 @@ void	build_len(char c)
 {
 	static char	len_s[11];
 	static int	i = 0;
-	
+
 	if (c == '\0')
 	{
 		len_s[i] = c;
@@ -55,8 +55,8 @@ void	build_len(char c)
 
 void	build_msg(char c, pid_t pid)
 {
-	static int 	i = 0;
-	
+	static int	i = 0;
+
 	if (!g_state.msg)
 	{
 		g_state.msg = malloc((sizeof(char) * g_state.msg_len) + 1);
@@ -97,7 +97,7 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 int	main(void)
 {
 	struct sigaction	sa;
-	
+
 	g_state.expecting_len = TRUE;
 	g_state.msg_len = 0;
 	g_state.msg = NULL;

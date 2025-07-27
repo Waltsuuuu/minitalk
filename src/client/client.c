@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 13:15:52 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:30:18 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ int	main(int argc, char *argv[])
 	signal(SIGUSR1, handle_ack_signal);
 	signal(SIGUSR2, handle_ack_signal);
 	send_len(pid, argv[2]);
-
 	send_msg(pid, argv[2]);
 	return (EXIT_SUCCESS);
 }
 
 void	send_len(pid_t pid, char *msg)
 {
-	int	len;
-	char *len_s;
+	int		len;
+	char	*len_s;
 
 	len = ft_strlen(msg);
 	len_s = ft_itoa(len);
