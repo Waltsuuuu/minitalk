@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:35:52 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 16:19:49 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ int	main(void)
 	while (1)
 		pause();
 	return (EXIT_SUCCESS);
+}
+
+void	handle_signal(int sig, siginfo_t *info, void *context)
+{
+	(void)context;
+	if (sig == SIGUSR2 || sig == SIGUSR1)
+		decode_bits(sig, info);
+	if (sig == SIGINT)
+	{
+		if (g_state.msg)
+		{
+			free(g_state.msg);
+			g_state.msg = NULL;
+		}
+		exit(EXIT_SUCCESS);
+	}
 }
 
 void	decode_bits(int sig, siginfo_t *info)
@@ -94,21 +110,5 @@ void	build_msg(char c, pid_t pid)
 		g_state.expecting_len = TRUE;
 		i = 0;
 		kill(pid, SIGUSR2);
-	}
-}
-
-void	handle_signal(int sig, siginfo_t *info, void *context)
-{
-	(void)context;
-	if (sig == SIGUSR2 || sig == SIGUSR1)
-		decode_bits(sig, info);
-	if (sig == SIGINT)
-	{
-		if (g_state.msg)
-		{
-			free(g_state.msg);
-			g_state.msg = NULL;
-		}
-		exit(EXIT_SUCCESS);
 	}
 }
