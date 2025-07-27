@@ -6,13 +6,32 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:46 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:29:50 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:35:52 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 static t_server_state	g_state;
+
+int	main(void)
+{
+	struct sigaction	sa;
+
+	g_state.expecting_len = TRUE;
+	g_state.msg_len = 0;
+	g_state.msg = NULL;
+	sa.sa_sigaction = &handle_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
+	ft_printf("Server PID: %d\n", getpid());
+	while (1)
+		pause();
+	return (EXIT_SUCCESS);
+}
 
 void	decode_bits(int sig, siginfo_t *info)
 {
@@ -92,23 +111,4 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 		}
 		exit(EXIT_SUCCESS);
 	}
-}
-
-int	main(void)
-{
-	struct sigaction	sa;
-
-	g_state.expecting_len = TRUE;
-	g_state.msg_len = 0;
-	g_state.msg = NULL;
-	sa.sa_sigaction = &handle_signal;
-	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	sigaction(SIGINT, &sa, NULL);
-	ft_printf("Server PID: %d\n", getpid());
-	while (1)
-		pause();
-	return (EXIT_SUCCESS);
 }
