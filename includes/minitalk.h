@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:43 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 14:54:47 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/27 19:11:04 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <signal.h>
-# include <sys/types.h>
 # include "libft.h"
 # include "ft_printf.h"
 
