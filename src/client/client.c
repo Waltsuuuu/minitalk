@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:06:41 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/27 21:04:12 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/29 01:14:39 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	send_char(pid_t pid, char c)
 		else
 			kill(pid, SIGUSR1);
 		while (!g_signal_received)
-			usleep(1);
+			usleep(100);
+		usleep(100);
 		g_signal_received = 0;
 		bit_index--;
 	}
